@@ -3,174 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Keijaw Setorr anjay slebew</title>
+
+<title>Keijaw Store</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
 }
 
 body{
-background:#0d1117;
-color:white;
+    background:#050505;
+    color:white;
 }
 
-header{
-background:linear-gradient(90deg,#0066ff,#000000);
-padding:20px;
-text-align:center;
-font-size:28px;
-font-weight:bold;
+.header{
+    text-align:center;
+    padding:18px;
+    font-size:26px;
+    font-weight:bold;
+    color:#4da6ff;
 }
 
 .container{
-max-width:500px;
-margin:30px auto;
-background:#161b22;
-padding:25px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,102,255,0.3);
+    max-width:500px;
+    margin:auto;
+    padding:15px;
 }
 
-.banner{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
+.game-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#111;
+    padding:15px;
+    margin-bottom:12px;
+    border-radius:14px;
+    border:1px solid #222;
+    cursor:pointer;
 }
 
-h2{
-text-align:center;
-margin-bottom:20px;
-color:#4da3ff;
+.game-item img{
+    width:60px;
+    height:60px;
+    border-radius:12px;
 }
 
-label{
-display:block;
-margin-top:15px;
-margin-bottom:5px;
+.game-name{
+    font-size:20px;
+    font-weight:bold;
 }
 
-input,select{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#21262d;
-color:white;
-font-size:15px;
+.diamond-page{display:none;}
+.payment-page{display:none;}
+.waiting-page{display:none;}
+
+.back-btn{
+    background:#4da6ff;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    color:white;
+    margin-bottom:15px;
+    cursor:pointer;
 }
 
-.payment{
-margin-top:20px;
-background:#21262d;
-padding:15px;
-border-radius:10px;
+.section-title{
+    color:#4da6ff;
+    margin:10px 0;
+    font-size:18px;
 }
 
-.payment h3{
-margin-bottom:10px;
-color:#4da3ff;
+.diamond-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.btn{
-width:100%;
-padding:14px;
-margin-top:20px;
-border:none;
-border-radius:10px;
-background:#0066ff;
-color:white;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
+.diamond-item{
+    background:#111;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #222;
+    text-align:center;
+    cursor:pointer;
 }
 
-.btn:hover{
-background:#0052cc;
+.method{
+    background:#111;
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:10px;
+    border:1px solid #222;
+    cursor:pointer;
 }
 
-/* WHEEL */
-
-.wheel-box{
-margin-top:20px;
-background:#21262d;
-padding:20px;
-border-radius:15px;
-text-align:center;
+.method:hover{
+    border-color:#4da6ff;
 }
 
-.wheel-container{
-position:relative;
-width:250px;
-height:250px;
-margin:20px auto;
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.wheel{
-width:100%;
-height:100%;
-border-radius:50%;
-border:8px solid white;
-transition:transform 5s ease-out;
-
-background:
-conic-gradient(
-#1e90ff 0deg 51deg,
-#0d6efd 51deg 102deg,
-#0047ab 102deg 153deg,
-#0066ff 153deg 204deg,
-#3399ff 204deg 255deg,
-#003366 255deg 306deg,
-#4da3ff 306deg 360deg
-);
-
+.pay-btn{
+    background:#4da6ff;
+    color:white;
+    margin-top:15px;
 }
 
-.pointer{
-width:0;
-height:0;
-border-left:15px solid transparent;
-border-right:15px solid transparent;
-border-top:30px solid red;
-
-position:absolute;
-top:-5px;
-left:50%;
-transform:translateX(-50%);
+.box{
+    background:#111;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #222;
+    margin-bottom:10px;
 }
 
-.spin-btn{
-padding:12px 25px;
-border:none;
-border-radius:10px;
-background:#0066ff;
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+    margin-top:5px;
 }
 
-.spin-btn:disabled{
-background:gray;
-cursor:not-allowed;
-}
-
-#hasilDiskon{
-margin-top:20px;
-font-size:22px;
-font-weight:bold;
-color:#4da3ff;
-}
-
-footer{
-text-align:center;
-padding:20px;
-color:#999;
-font-size:14px;
+.warning{
+    background:#2b1b1b;
+    border:1px solid red;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:15px;
+    color:#ffb3b3;
+    font-size:14px;
+    line-height:1.5;
 }
 
 </style>
@@ -178,246 +154,233 @@ font-size:14px;
 
 <body>
 
-<header>
-Dika Store
-</header>
+<div class="header">Keijaw Store</div>
 
-<div class="container">
+<!-- GAME PAGE -->
+<div class="container" id="gamePage">
 
-<img
-class="banner"
-src="https://wallpapercave.com/wp/wp5128415.jpg"
->
+    <div class="game-item" onclick="openDiamond('Mobile Legends')">
+        <img src="https://i.imgur.com/WsJ7m5x.png">
+        <div class="game-name">Mobile Legends</div>
+    </div>
 
-<h2>Top Up Free Fire</h2>
+    <div class="game-item" onclick="openDiamond('Free Fire')">
+        <img src="https://i.imgur.com/7lKD7gD.png">
+        <div class="game-name">Free Fire</div>
+    </div>
 
-<label>ID Free Fire</label>
-
-<input
-type="text"
-id="idff"
-placeholder="Masukkan ID Free Fire"
->
-
-<!-- WHEEL -->
-
-<div class="wheel-box">
-
-<h3>Spin Diskon</h3>
-
-<p>
-Spin hanya bisa dilakukan 1x
-</p>
-
-<div class="wheel-container">
-
-<div class="pointer"></div>
-
-<div class="wheel" id="wheel"></div>
+    <div class="game-item" onclick="openDiamond('PUBG Mobile')">
+        <img src="https://i.imgur.com/M5rSx8M.png">
+        <div class="game-name">PUBG Mobile</div>
+    </div>
 
 </div>
 
-<button
-class="spin-btn"
-id="spinBtn"
-onclick="spinWheel()"
->
-SPIN SEKARANG
-</button>
+<!-- DIAMOND PAGE -->
+<div class="container diamond-page" id="diamondPage">
 
-<div id="hasilDiskon">
-Belum mendapatkan diskon
-</div>
+    <button class="back-btn" onclick="backGame()">← Kembali</button>
 
-</div>
+    <h2 id="gameTitle"></h2>
 
-<label>Pilih Diamond</label>
+    <!-- INPUT -->
+    <div class="box">
 
-<select id="diamond">
+        <div style="margin-bottom:12px;">
+            <label>ID Game</label>
+            <input type="text" id="userId"
+            placeholder="Masukkan ID Game">
+        </div>
 
-<option value="">
--- Pilih Diamond --
-</option>
+        <div>
+            <label>Nickname</label>
+            <input type="text" id="nickname"
+            placeholder="Masukkan Nickname">
+        </div>
 
-<option>
-70 Diamond - Rp10.000
-</option>
+    </div>
 
-<option>
-140 Diamond - Rp20.000
-</option>
+    <!-- WARNING -->
+    <div class="warning">
+        ⚠️ PERINGATAN:<br><br>
+        Pastikan ID dan Nickname yang dimasukkan benar.<br>
+        Jika salah menginput ID atau Nickname,
+        maka bukan tanggung jawab admin.
+    </div>
 
-<option>
-355 Diamond - Rp50.000
-</option>
+    <div class="section-title">Pilih Diamond</div>
 
-<option>
-720 Diamond - Rp100.000
-</option>
+    <div class="diamond-list">
 
-</select>
+        <div class="diamond-item" onclick="openPayment('5 Diamond','1500')">5 Diamond</div>
+        <div class="diamond-item" onclick="openPayment('12 Diamond','3000')">12 Diamond</div>
+        <div class="diamond-item" onclick="openPayment('44 Diamond','10000')">44 Diamond</div>
+        <div class="diamond-item" onclick="openPayment('86 Diamond','20000')">86 Diamond</div>
+        <div class="diamond-item" onclick="openPayment('172 Diamond','38000')">172 Diamond</div>
+        <div class="diamond-item" onclick="openPayment('257 Diamond','55000')">257 Diamond</div>
 
-<label>Metode Pembayaran</label>
-
-<select id="payment">
-
-<option value="">
--- Pilih Pembayaran --
-</option>
-
-<option>
-DANA
-</option>
-
-</select>
-
-<div class="payment">
-
-<h3>Pembayaran DANA</h3>
-
-<p>Transfer ke:</p>
-
-<b>083142324267</b>
+    </div>
 
 </div>
 
-<button
-class="btn"
-onclick="kirimPesanan()"
->
-Beli Sekarang
-</button>
+<!-- PAYMENT PAGE -->
+<div class="container payment-page" id="paymentPage">
+
+    <button class="back-btn" onclick="backDiamond()">← Kembali</button>
+
+    <div class="box">
+        Game: <span id="payGame"></span><br>
+        ID: <span id="payId"></span><br>
+        Nickname: <span id="payNick"></span><br>
+        Diamond: <span id="payDiamond"></span><br>
+        Harga: Rp <span id="payPrice"></span>
+    </div>
+
+    <div class="section-title">Pilih Metode Pembayaran</div>
+
+    <div class="method" onclick="selectMethod('DANA')">DANA</div>
+    <div class="method" onclick="selectMethod('OVO')">OVO</div>
+    <div class="method" onclick="selectMethod('QRIS')">QRIS</div>
+
+    <button class="pay-btn" onclick="payNow()">Bayar Sekarang</button>
 
 </div>
 
-<footer>
-© 2026 Dika Store
-</footer>
+<!-- WAITING PAGE -->
+<div class="container waiting-page" id="waitingPage">
+
+    <div class="box">
+        Game: <span id="wGame"></span><br>
+        ID: <span id="wId"></span><br>
+        Nickname: <span id="wNick"></span><br>
+        Diamond: <span id="wDiamond"></span><br>
+        Harga: Rp <span id="wPrice"></span><br>
+        Metode: <span id="wMethod"></span>
+    </div>
+
+    <div class="box" id="paymentInfo"></div>
+
+    <h3 style="text-align:center;color:#4da6ff;">
+        Menunggu Pembayaran...
+    </h3>
+
+</div>
 
 <script>
 
-let diskonDidapat = "0%";
+let game = "";
+let diamond = "";
+let price = "";
+let method = "";
+let userId = "";
+let nickname = "";
 
-/* CEK SUDAH SPIN */
+function openDiamond(g){
 
-window.onload = function(){
+    game = g;
 
-if(localStorage.getItem("sudahSpin") === "iya"){
+    gamePage.style.display="none";
+    diamondPage.style.display="block";
 
-document.getElementById("spinBtn").disabled = true;
-
-document.getElementById("hasilDiskon").innerHTML =
-"Spin diskon sudah digunakan";
-
+    gameTitle.innerText = g;
 }
 
+function backGame(){
+    gamePage.style.display="block";
+    diamondPage.style.display="none";
 }
 
-/* SPIN */
+function openPayment(d,p){
 
-function spinWheel(){
+    userId = document.getElementById("userId").value;
+    nickname = document.getElementById("nickname").value;
 
-let idFF =
-document.getElementById("idff").value;
+    if(userId == "" || nickname == ""){
+        alert("Isi ID dan Nickname terlebih dahulu!");
+        return;
+    }
 
-if(idFF === ""){
-alert("Masukkan ID Free Fire terlebih dahulu!");
-return;
+    diamond = d;
+    price = p;
+
+    diamondPage.style.display="none";
+    paymentPage.style.display="block";
+
+    payGame.innerText = game;
+    payId.innerText = userId;
+    payNick.innerText = nickname;
+    payDiamond.innerText = d;
+    payPrice.innerText = p;
 }
 
-if(localStorage.getItem("sudahSpin") === "iya"){
-alert("Kamu sudah menggunakan spin!");
-return;
+function backDiamond(){
+    diamondPage.style.display="block";
+    paymentPage.style.display="none";
 }
 
-localStorage.setItem("sudahSpin","iya");
-
-document.getElementById("spinBtn").disabled = true;
-
-const hadiah = [
-"0%",
-"0%",
-"0%",
-"0%",
-"2%",
-"2%",
-"2%",
-"10%"
-];
-
-diskonDidapat =
-hadiah[Math.floor(Math.random()*hadiah.length)];
-
-let wheel =
-document.getElementById("wheel");
-
-let randomDeg =
-3600 + Math.floor(Math.random()*360);
-
-wheel.style.transform =
-"rotate(" + randomDeg + "deg)";
-
-setTimeout(() => {
-
-document.getElementById("hasilDiskon").innerHTML =
-"🎉🎊 SELAMAT 🎊🎉<br>Kamu mendapatkan diskon " +
-diskonDidapat;
-
-},5000);
-
+function selectMethod(m){
+    method = m;
+    alert("Metode dipilih: " + m);
 }
 
-/* KIRIM TELEGRAM */
+function payNow(){
 
-async function kirimPesanan(){
+    if(method == ""){
+        alert("Pilih metode dulu!");
+        return;
+    }
 
-let id =
-document.getElementById("idff").value;
+    paymentPage.style.display="none";
+    waitingPage.style.display="block";
 
-let diamond =
-document.getElementById("diamond").value;
+    wGame.innerText = game;
+    wId.innerText = userId;
+    wNick.innerText = nickname;
+    wDiamond.innerText = diamond;
+    wPrice.innerText = price;
+    wMethod.innerText = method;
 
-let pembayaran =
-document.getElementById("payment").value;
+    // TELEGRAM BOT
+    const botToken = "8598368934:AAEZSHWjH0yrTFGYKCzxYCcJwUdZCQzCWS4";
+    const chatId = "8919873951";
 
-if(id === "" || diamond === "" || pembayaran === ""){
-alert("Lengkapi data terlebih dahulu!");
-return;
-}
+    const text = `
+🛒 PESANAN BARU
 
-let pesan =
-`🔥 PESANAN BARU DIKA STORE 🔥
+🎮 Game: ${game}
+🆔 ID: ${userId}
+👤 Nickname: ${nickname}
+💎 Diamond: ${diamond}
+💰 Harga: Rp ${price}
+💳 Metode: ${method}
+`;
 
-ID FF : ${id}
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            chat_id: chatId,
+            text: text
+        })
+    });
 
-Diamond : ${diamond}
+    if(method == "DANA" || method == "OVO"){
+        paymentInfo.innerHTML = `
+        Transfer ke:<br><br>
+        <b style="font-size:22px;">083142324267</b><br>
+        A/N DIKA STORE
+        `;
+    }
 
-Pembayaran : ${pembayaran}
-
-Diskon : ${diskonDidapat}`;
-
-let token =
-"8598368934:AAEZSHWjH0yrTFGYKCzxYCcJwUdZCQzCWS4";
-
-let chatid =
-"8919873951";
-
-let url =
-`https://api.telegram.org/bot${token}/sendMessage`;
-
-await fetch(url,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-chat_id:chatid,
-text:pesan
-})
-});
-
-alert("Pesanan berhasil dikirim!");
-
+    if(method == "QRIS"){
+        paymentInfo.innerHTML = `
+        <img src="https://i.imgur.com/t8yQF6M.png"
+        style="width:100%;border-radius:12px;">
+        <br><br>Scan QRIS untuk pembayaran
+        `;
+    }
 }
 
 </script>
