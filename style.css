@@ -1,226 +1,207 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Keijaw Store</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<div class="header">Keijaw Store</div>
-
-<!-- GAME PAGE -->
-<div class="container" id="gamePage">
-
-    <div class="game-item" onclick="openDiamond('Mobile Legends')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/747610/header.jpg">
-        <div class="game-name">Mobile Legends</div>
-    </div>
-
-    <div class="game-item" onclick="openDiamond('Free Fire')">
-        <img src="https://wallpapercave.com/wp/wp6374097.jpg">
-        <div class="game-name">Free Fire</div>
-    </div>
-
-    <div class="game-item" onclick="openDiamond('PUBG Mobile')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg">
-        <div class="game-name">PUBG Mobile</div>
-    </div>
-
-    <div class="game-item" onclick="openDiamond('Call of Duty Mobile')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/header.jpg">
-        <div class="game-name">Call of Duty Mobile</div>
-    </div>
-
-    <div class="game-item" onclick="openDiamond('Valorant')">
-        <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt0d8f8f8b4d65e4d3/5eb26f538c0b017fdbf3d8c0/VALORANT.jpg">
-        <div class="game-name">Valorant</div>
-    </div>
-
-</div>
-
-<!-- DIAMOND PAGE -->
-<div class="container diamond-page" id="diamondPage">
-
-    <button class="back-btn" onclick="backGame()">← Kembali</button>
-
-    <h2 id="gameTitle"></h2>
-
-    <div class="box">
-
-        <div style="margin-bottom:12px;">
-            <label>ID Game</label>
-            <input type="text" id="userId"
-            placeholder="Masukkan ID Game">
-        </div>
-
-        <div>
-            <label>Nickname</label>
-            <input type="text" id="nickname"
-            placeholder="Masukkan Nickname">
-        </div>
-
-    </div>
-
-    <div class="warning">
-        ⚠️ PERINGATAN:<br><br>
-        Pastikan ID dan Nickname benar.
-        Kesalahan input bukan tanggung jawab admin.
-    </div>
-
-    <div class="section-title">Pilih Diamond</div>
-
-    <div class="diamond-list">
-
-        <div class="diamond-item" onclick="openPayment('5 Diamond','1500')">5 Diamond</div>
-        <div class="diamond-item" onclick="openPayment('12 Diamond','3000')">12 Diamond</div>
-        <div class="diamond-item" onclick="openPayment('44 Diamond','10000')">44 Diamond</div>
-        <div class="diamond-item" onclick="openPayment('86 Diamond','20000')">86 Diamond</div>
-
-    </div>
-
-</div>
-
-<!-- PAYMENT PAGE -->
-<div class="container payment-page" id="paymentPage">
-
-    <button class="back-btn" onclick="backDiamond()">← Kembali</button>
-
-    <div class="box">
-        Game: <span id="payGame"></span><br>
-        ID: <span id="payId"></span><br>
-        Nickname: <span id="payNick"></span><br>
-        Diamond: <span id="payDiamond"></span><br>
-        Harga: Rp <span id="payPrice"></span>
-    </div>
-
-    <div class="section-title">Pilih Metode Pembayaran</div>
-
-    <div class="method" onclick="selectMethod('DANA')">DANA</div>
-    <div class="method" onclick="selectMethod('OVO')">OVO</div>
-    <div class="method" onclick="selectMethod('QRIS')">QRIS</div>
-
-    <button class="pay-btn" onclick="payNow()">Bayar Sekarang</button>
-
-</div>
-
-<!-- WAITING PAGE -->
-<div class="container waiting-page" id="waitingPage">
-
-    <div class="box">
-        Game: <span id="wGame"></span><br>
-        ID: <span id="wId"></span><br>
-        Nickname: <span id="wNick"></span><br>
-        Diamond: <span id="wDiamond"></span><br>
-        Harga: Rp <span id="wPrice"></span><br>
-        Metode: <span id="wMethod"></span>
-    </div>
-
-    <div class="box" id="paymentInfo"></div>
-
-    <h3 style="text-align:center;color:#4da6ff;">
-        Menunggu Pembayaran...
-    </h3>
-
-</div>
-
-<script>
-
-let game = "";
-let diamond = "";
-let price = "";
-let method = "";
-let userId = "";
-let nickname = "";
-
-function openDiamond(g){
-
-    game = g;
-
-    gamePage.style.display="none";
-    diamondPage.style.display="block";
-
-    gameTitle.innerText = g;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
-function backGame(){
-    gamePage.style.display="block";
-    diamondPage.style.display="none";
+body{
+    background:#0f172a;
+    color:white;
 }
 
-function openPayment(d,p){
+.header{
+    background:#111827;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
 
-    userId = document.getElementById("userId").value;
-    nickname = document.getElementById("nickname").value;
+.container{
+    padding:15px;
+}
 
-    if(userId == "" || nickname == ""){
-        alert("Isi ID dan Nickname terlebih dahulu!");
-        return;
+/* GAME LIST */
+
+.game-item{
+    background:#1e293b;
+    border-radius:15px;
+    overflow:hidden;
+    margin-bottom:20px;
+    cursor:pointer;
+    transition:0.3s;
+    border:1px solid #334155;
+}
+
+.game-item:hover{
+    transform:scale(1.02);
+}
+
+.game-item img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
+}
+
+.game-name{
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* PAGE */
+
+.diamond-page,
+.payment-page,
+.waiting-page{
+    display:none;
+}
+
+/* BOX */
+
+.box{
+    background:#1e293b;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:20px;
+    border:1px solid #334155;
+}
+
+/* INPUT */
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    background:#334155;
+    color:white;
+    font-size:15px;
+}
+
+input::placeholder{
+    color:#cbd5e1;
+}
+
+/* WARNING */
+
+.warning{
+    background:#7f1d1d;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:20px;
+    color:#fecaca;
+    border:1px solid #ef4444;
+}
+
+/* TITLE */
+
+.section-title{
+    font-size:20px;
+    margin-bottom:15px;
+    font-weight:bold;
+}
+
+/* DIAMOND */
+
+.diamond-list{
+    display:grid;
+    gap:12px;
+}
+
+.diamond-item{
+    background:#2563eb;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.diamond-item:hover{
+    background:#1d4ed8;
+}
+
+/* PAYMENT METHOD */
+
+.method{
+    background:#334155;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.3s;
+    text-align:center;
+    font-weight:bold;
+}
+
+.method:hover{
+    background:#475569;
+}
+
+/* BUTTON */
+
+.pay-btn,
+.back-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.pay-btn{
+    background:#22c55e;
+    color:white;
+    margin-top:10px;
+}
+
+.pay-btn:hover{
+    background:#16a34a;
+}
+
+.back-btn{
+    background:#ef4444;
+    color:white;
+    margin-bottom:20px;
+}
+
+.back-btn:hover{
+    background:#dc2626;
+}
+
+/* WAITING */
+
+h3{
+    margin-top:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .header{
+        font-size:22px;
     }
 
-    diamond = d;
-    price = p;
-
-    diamondPage.style.display="none";
-    paymentPage.style.display="block";
-
-    payGame.innerText = game;
-    payId.innerText = userId;
-    payNick.innerText = nickname;
-    payDiamond.innerText = d;
-    payPrice.innerText = p;
-}
-
-function backDiamond(){
-    diamondPage.style.display="block";
-    paymentPage.style.display="none";
-}
-
-function selectMethod(m){
-    method = m;
-    alert("Metode dipilih: " + m);
-}
-
-function payNow(){
-
-    if(method == ""){
-        alert("Pilih metode dulu!");
-        return;
+    .game-item img{
+        height:160px;
     }
 
-    paymentPage.style.display="none";
-    waitingPage.style.display="block";
-
-    wGame.innerText = game;
-    wId.innerText = userId;
-    wNick.innerText = nickname;
-    wDiamond.innerText = diamond;
-    wPrice.innerText = price;
-    wMethod.innerText = method;
-
-    if(method == "DANA" || method == "OVO"){
-        paymentInfo.innerHTML = `
-        Transfer ke:<br><br>
-        <b style="font-size:22px;">083142324267</b><br>
-        A/N DIKA STORE
-        `;
     }
-
-    if(method == "QRIS"){
-        paymentInfo.innerHTML = `
-        <img src="https://i.imgur.com/t8yQF6M.png"
-        style="width:100%;border-radius:12px;">
-        <br><br>Scan QRIS untuk pembayaran
-        `;
-    }
-}
-
-</script>
-
-</body>
-</html>
