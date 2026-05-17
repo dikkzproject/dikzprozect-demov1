@@ -45,4 +45,11 @@ body{
     object-fit:cover;
     display:block;
 }
+
+.game-name{
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
 }
