@@ -1,103 +1,43 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Keijaw Store</title>
-
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Potion Coffee</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="header">Keijaw Store</div>
+<header>
+  <div class="logo">BLACK POTION</div>
 
-<!-- GAME PAGE -->
-<div class="container" id="gamePage">
+  <div class="menu-btn">
+    ☰
+  </div>
+</header>
 
-    <div class="game-item" onclick="openDiamond('Mobile Legends')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/747610/header.jpg">
-        <div class="game-name">Mobile Legends</div>
-    </div>
+<section class="hero">
+  <h1>2 STEP EZ COFFEE</h1>
+  <p>Minimal Steps Maximum Taste</p>
 
-    <div class="game-item" onclick="openDiamond('Free Fire')">
-        <img src="https://wallpapercave.com/wp/wp6374097.jpg">
-        <div class="game-name">Free Fire</div>
-    </div>
+  <button>Beli Sekarang</button>
+</section>
 
-    <div class="game-item" onclick="openDiamond('PUBG Mobile')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg">
-        <div class="game-name">PUBG Mobile</div>
-    </div>
+<section class="products">
+  <div class="card">
+    <img src="assets/produk1.jpg">
+    <h3>Fantastic Mango</h3>
+  </div>
 
-    <div class="game-item" onclick="openDiamond('Call of Duty Mobile')">
-        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/header.jpg">
-        <div class="game-name">Call of Duty Mobile</div>
-    </div>
+  <div class="card">
+    <img src="assets/produk2.jpg">
+    <h3>Snow White Apple</h3>
+  </div>
+</section>
 
-    <div class="game-item" onclick="openDiamond('Valorant')">
-        <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt0d8f8f8b4d65e4d3/5eb26f538c0b017fdbf3d8c0/VALORANT.jpg">
-        <div class="game-name">Valorant</div>
-    </div>
+<a href="#" class="wa-button">
+  WhatsApp
+</a>
 
-</div>
-
-<!-- DIAMOND PAGE -->
-<div class="container diamond-page" id="diamondPage">
-
-    <button class="back-btn" onclick="backGame()">← Kembali</button>
-
-    <h2 id="gameTitle"></h2>
-
-    <div class="box">
-
-        <div style="margin-bottom:12px;">
-            <label>ID Game</label>
-            <input type="text" id="userId" placeholder="Masukkan ID Game">
-        </div>
-
-        <div>
-            <label>Nickname</label>
-            <input type="text" id="nickname" placeholder="Masukkan Nickname">
-        </div>
-
-    </div>
-
-    <div class="warning">
-        ⚠️ PERINGATAN:<br><br>
-        Pastikan ID dan Nickname benar.
-        Kesalahan input bukan tanggung jawab admin.
-    </div>
-
-    <div class="section-title">Pilih Diamond</div>
-
-    <div class="diamond-list">
-
-        <div class="diamond-item" onclick="openPayment('5 Diamond','1500')">
-            <div class="diamond-name">5 Diamond</div>
-            <div class="diamond-price">Rp 1.500</div>
-        </div>
-
-        <div class="diamond-item" onclick="openPayment('12 Diamond','3000')">
-            <div class="diamond-name">12 Diamond</div>
-            <div class="diamond-price">Rp 3.000</div>
-        </div>
-
-        <div class="diamond-item" onclick="openPayment('44 Diamond','10000')">
-            <div class="diamond-name">44 Diamond</div>
-            <div class="diamond-price">Rp 10.000</div>
-        </div>
-
-        <div class="diamond-item" onclick="openPayment('86 Diamond','20000')">
-            <div class="diamond-name">86 Diamond</div>
-            <div class="diamond-price">Rp 20.000</div>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- PAYMENT PAGE -->
+</body>
 </html>
