@@ -1,43 +1,632 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Damar store coffie</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dikz Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#e7e7e7;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+.container{
+  width:100%;
+  max-width:430px;
+}
+
+/* HEADER */
+
+.header-store{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.logo-store{
+  width:75px;
+  height:75px;
+  flex-shrink:0;
+}
+
+.logo-store img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.store-title h1{
+  font-size:32px;
+  color:#111827;
+  font-weight:700;
+}
+
+.store-title p{
+  color:#6b7280;
+  margin-top:5px;
+  font-size:14px;
+}
+
+/* BEST SELLER */
+
+.best-title{
+  margin-bottom:12px;
+}
+
+.best-title h2{
+  font-size:22px;
+  color:#111827;
+  font-weight:700;
+}
+
+/* SLIDER */
+
+.slider{
+  width:100%;
+  height:190px;
+  border-radius:25px;
+  border:4px solid,#111;
+  overflow:hidden;
+  position:relative;
+  margin-bottom:25px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+.slides{
+  display:flex;
+  width:300%;
+  height:100%;
+  transition:0.5s ease;
+}
+
+.slide{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.slide-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+  to top,
+  rgba(0,0,0,0.75),
+  rgba(0,0,0,0.15));
+}
+
+.slide-text{
+  position:absolute;
+  left:20px;
+  bottom:20px;
+  color:white;
+  z-index:2;
+}
+
+.slide-text h3{
+  font-size:28px;
+  font-weight:700;
+}
+
+.slide-text p{
+  font-size:14px;
+  margin-top:4px;
+}
+
+/* SECTION */
+
+.game-section,
+.diamond-section{
+  background:#f3f4f6;
+  border-radius:25px;
+  padding:25px;
+  margin-bottom:25px;
+}
+
+/* TITLE */
+
+.section-title h2{
+  font-size:30px;
+  color:#111827;
+  margin-bottom:25px;
+}
+
+/* GAME GRID */
+
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px 15px;
+}
+
+/* GAME CARD */
+
+.game-card{
+  border:none;
+  background:none;
+  text-align:center;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.game-card:active{
+  transform:scale(0.95);
+}
+
+.game-card img{
+  width:75px;
+  height:75px;
+  object-fit:cover;
+  border-radius:22px;
+  margin-bottom:10px;
+  background:white;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.game-card span{
+  font-size:14px;
+  color:#111827;
+  font-weight:600;
+  line-height:1.4;
+  display:block;
+}
+
+/* ACTIVE */
+
+.game-card.active img{
+  border:4px solid #b91c1c;
+}
+
+.game-card.active span{
+  color:#b91c1c;
+}
+
+/* DIAMOND GRID */
+
+.diamond-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+/* DIAMOND CARD */
+
+.diamond-card{
+  border:none;
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  cursor:pointer;
+  text-align:left;
+  transition:0.2s;
+  box-shadow:0 4px 10px rgba(0,0,0,0.06);
+}
+
+.diamond-card:hover{
+  transform:translateY(-3px);
+}
+
+.diamond-card.active{
+  border:3px solid #b91c1c;
+}
+
+/* DIAMOND TOP */
+
+.diamond-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.diamond-top img{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+}
+
+.diamond-top span{
+  font-size:15px;
+  font-weight:600;
+  color:#111827;
+}
+
+/* PRICE */
+
+.diamond-price{
+  font-size:16px;
+  font-weight:700;
+  color:#b91c1c;
+}
+
+/* MOBILE */
+
+@media(max-width:420px){
+
+  .game-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .diamond-grid{
+    grid-template-columns:1fr;
+  }
+
+  .game-card img{
+    width:68px;
+    height:68px;
+  }
+
+  .section-title h2{
+    font-size:26px;
+  }
+
+}
+
+</style>
+
 </head>
 <body>
 
-<header>
-  <div class="logo">BLACK POTION</div>
+<div class="container">
 
-  <div class="menu-btn">
-    ☰
-  </div>
-</header>
+  <!-- HEADER -->
 
-<section class="hero">
-  <h1>2 STEP EZ DAMAR ANJENG COFFEE</h1>
-  <p>Minimal Steps Maximum Taste</p>
+  <div class="header-store">
 
-  <button>Beli Sekarang</button>
-</section>
+    <div class="logo-store">
+      <img src="logo.png">
+    </div>
 
-<section class="products">
-  <div class="card">
-    <img src="assets/produk1.jpg">
-    <h3>Fantastic Mango</h3>
+    <div class="store-title">
+      <h1>Dikz Store</h1>
+      <p>Top Up Game Murah & Cepat</p>
+    </div>
+
   </div>
 
-  <div class="card">
-    <img src="assets/produk2.jpg">
-    <h3>Snow White Apple</h3>
-  </div>
-</section>
+  <!-- BEST SELLER -->
 
-<a href="#" class="wa-button">
-  WhatsApp
-</a>
+  <div class="best-title">
+    <h2>Best Seller Diamond</h2>
+  </div>
+
+  <!-- SLIDER -->
+
+  <div class="slider">
+
+    <div class="slides">
+
+      <!-- FREE FIRE -->
+
+      <div class="slide">
+
+        <img src="freefirebaner.webp">
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-text">
+          <h3>Free Fire</h3>
+          <p>Top Up Diamond Murah</p>
+        </div>
+
+      </div>
+
+      <!-- ML -->
+
+      <div class="slide">
+
+        <img src="mlbaner.jpeg">
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-text">
+          <h3>Mobile Legends</h3>
+          <p>Proses Under 5 Menit</p>
+        </div>
+
+      </div>
+
+      <!-- PUBG -->
+
+      <div class="slide">
+
+        <img src="pubgbaner.webp">
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-text">
+          <h3>PUBG Mobile</h3>
+          <p>UC Aman Amanah Terpercaya</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PILIH GAME -->
+
+  <div class="game-section">
+
+    <div class="section-title">
+      <h2>Pilih Game</h2>
+    </div>
+
+    <div class="game-grid">
+
+      <button class="game-card active">
+        <img src="download.jpeg">
+        <span>Free Fire</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (1).jpeg">
+        <span>Mobile Legends</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (2).jpeg">
+        <span>PUBG Mobile</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (5).png">
+        <span>Valorant</span>
+      </button>
+
+      <button class="game-card">
+        <img src="images (7).jpeg">
+        <span>Call Of Duty</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (3).jpeg">
+        <span>Genshin Impact</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (4).jpeg">
+        <span>Honor Of Kings</span>
+      </button>
+
+      <button class="game-card">
+        <img src="download (6).png">
+        <span>Garena AOV</span>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- MENU DIAMOND -->
+
+<div class="diamond-section" id="diamondSection" style="display:none;">
+
+  <div class="section-title">
+    <h2 id="diamondTitle">Pilih Nominal</h2>
+  </div>
+
+  <div class="diamond-grid" id="diamondGrid">
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================
+   AUTO SLIDER
+========================= */
+
+const slides = document.querySelector('.slides');
+
+let index = 0;
+
+function autoSlide(){
+
+  index++;
+
+  if(index >= 3){
+    index = 0;
+  }
+
+  slides.style.transform =
+  `translateX(-${index * 33.3333}%)`;
+
+}
+
+setInterval(autoSlide, 4000);
+
+
+/* =========================
+   DATA DIAMOND
+========================= */
+
+const 
+  gameData = {
+
+  "Free Fire":[
+    {name:"5 Diamond",price:"Rp1.500"},
+    {name:"12 Diamond",price:"Rp2.000"},
+    {name:"70 Diamond",price:"Rp10.000"},
+    {name:"140 Diamond",price:"Rp25.000"},
+    {name:"355 Diamond",price:"Rp50.000"},
+    {name:"720 Diamond",price:"Rp100.000"},
+    {name:"1450 Diamond",price:"Rp225.000"}
+  ],
+
+  "Mobile Legends":[
+    {name:"3 Diamond",price:"Rp1.400"},
+    {name:"28 Diamond",price:"Rp9.500"},
+    {name:"56 Diamond",price:"Rp17.000"},
+    {name:"86 Diamond",price:"Rp24.000"},
+    {name:"100 Diamond",price:"Rp28.000"},
+    {name:"144 Diamond",price:"Rp41.000"},
+    {name:"185 Diamond",price:"Rp50.000"},
+    {name:"257 Diamond",price:"Rp68.000"},
+    {name:"301 Diamond",price:"Rp82.000"},
+    {name:"344 Diamond",price:"Rp"},
+    {name:"408 Diamond",price:"Rp"},
+    {name:"601 Diamond",price:"Rp"},
+    {name:"1050 Diamond",price:"Rp"}
+  ],
+
+  "PUBG Mobile":[
+    {name:"60 UC",price:"Rp15.000"},
+    {name:"325 UC",price:"Rp75.000"},
+    {name:"660 UC",price:"Rp145.000"}
+  ],
+
+  "Valorant":[
+    {name:"125 VP",price:"Rp15.000"},
+    {name:"420 VP",price:"Rp50.000"},
+    {name:"700 VP",price:"Rp79.000"}
+  ],
+    
+  "Genshin Impact":[
+    {name:"200 token",price:"anjengya anjeng"},
+    {name:"cape memek",price:"project mangkrak"},
+    {name:"damar",price:"open bo"}
+  ],
+    
+  "Call Of Duty":[
+    {name:"bima",price:"bego"}
+  ]
+};
+
+
+/* =========================
+   PILIH GAME
+========================= */
+
+const gameCards =
+document.querySelectorAll('.game-card');
+
+const diamondSection =
+document.getElementById('diamondSection');
+
+const diamondGrid =
+document.getElementById('diamondGrid');
+
+const diamondTitle =
+document.getElementById('diamondTitle');
+
+
+gameCards.forEach(card => {
+
+  card.addEventListener('click', () => {
+
+    /* ACTIVE */
+
+    gameCards.forEach(item =>
+      item.classList.remove('active')
+    );
+
+    card.classList.add('active');
+
+    /* AMBIL NAMA GAME */
+
+    const gameName =
+    card.querySelector('span').innerText;
+
+    /* ACTIVE DIAMOND */
+
+document.addEventListener('click', function(e){
+
+  const diamondCard =
+  e.target.closest('.diamond-card');
+
+  if(!diamondCard) return;
+
+  const allDiamond =
+  document.querySelectorAll('.diamond-card');
+
+  allDiamond.forEach(card => {
+    card.classList.remove('active');
+  });
+
+  diamondCard.classList.add('active');
+
+});
+    
+    diamondSection.style.display = 'block';
+    
+    setTimeout(() => {
+
+  diamondSection.scrollIntoView({
+    behavior:'smooth'
+  });
+
+}, 200);
+
+    diamondTitle.innerText =
+    gameName + ' Nominal';
+
+    /* RESET GRID */
+
+    diamondGrid.innerHTML = '';
+
+    /* LOOP DATA */
+
+    if(gameData[gameName]){
+
+      gameData[gameName].forEach(item => {
+
+        diamondGrid.innerHTML += `
+
+          <button class="diamond-card">
+
+            <div class="diamond-top">
+
+              <img src="diamond.png">
+
+              <span>${item.name}</span>
+
+            </div>
+
+            <div class="diamond-price">
+              ${item.price}
+            </div>
+
+          </button>
+
+        `;
+
+      });
+
+    }
+
+  });
+
+});
+
+</script>
 
 </body>
 </html>
