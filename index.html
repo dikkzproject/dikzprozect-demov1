@@ -1,632 +1,636 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise buat Keija Sayang</title>
+    <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --primary-glow: #ff758c;
+            --bg-gradient: linear-gradient(135deg, #1f112c 0%, #0d0614 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-<title>Dikz Store</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            overflow: hidden;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            color: #ffffff;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-<style>
+        /* --- HALAMAN 1 & 2 --- */
+        .heart-btn {
+            width: 130px;
+            height: 130px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 20px var(--primary-color)) drop-shadow(0 0 40px var(--primary-glow));
+            animation: pulse 1.4s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 10;
+        }
+        .heart-btn svg { width: 100%; height: 100%; fill: url(#heartGradient); }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
 
-body{
-  background:#e7e7e7;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  padding:20px;
-}
+        .shard {
+            position: absolute;
+            background-color: var(--primary-color);
+            pointer-events: none;
+            opacity: 1;
+            transition: transform 0.8s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.8s ease;
+        }
 
-.container{
-  width:100%;
-  max-width:430px;
-}
+        .photo-gallery {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
 
-/* HEADER */
+        .photo-frame {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            padding: 6px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: scale(0.5) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .photo-frame.show { opacity: 1; transform: scale(1) translate(var(--x), var(--y)) rotate(var(--r)); pointer-events: auto; }
 
-.header-store{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:20px;
-}
+        .custom-btn {
+            position: absolute;
+            bottom: 60px;
+            padding: 14px 36px;
+            background: linear-gradient(45deg, #ff4d6d, #ff758c);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.4);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 20;
+            display: none;
+        }
+        .custom-btn.show { display: block; opacity: 1; transform: translateY(0); }
 
-.logo-store{
-  width:75px;
-  height:75px;
-  flex-shrink:0;
-}
+        /* --- HALAMAN 3: GAME MENU --- */
+        .game-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-.logo-store img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
+        .note-text {
+            position: absolute;
+            top: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
 
-.store-title h1{
-  font-size:32px;
-  color:#111827;
-  font-weight:700;
-}
+        .game-heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            filter: drop-shadow(0 5px 10px rgba(255, 77, 109, 0.3));
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .game-heart svg { width: 100%; height: 100%; fill: var(--primary-color); }
 
-.store-title p{
-  color:#6b7280;
-  margin-top:5px;
-  font-size:14px;
-}
+        /* --- HALAMAN 4: SCREEN LOVE TEXT --- */
+        .final-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            text-align: center;
+            padding: 20px;
+        }
 
-/* BEST SELLER */
+        .love-text {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.4;
+            background: linear-gradient(to right, #ffffff, #ffb3c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 77, 109, 0.6);
+            transition: all 1.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
 
-.best-title{
-  margin-bottom:12px;
-}
+        .love-text.fly-away {
+            transform: translateY(-120vh) scale(0.5);
+            opacity: 0;
+        }
 
-.best-title h2{
-  font-size:22px;
-  color:#111827;
-  font-weight:700;
-}
+        .bubble-heart {
+            position: absolute;
+            bottom: -60px;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatUp var(--t) ease-in forwards;
+        }
+        .bubble-heart.fade-out {
+            opacity: 0 !important;
+            transition: opacity 1s ease;
+        }
 
-/* SLIDER */
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0) scale(0.3) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.7; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-110vh) translateX(var(--x-move)) scale(var(--s)) rotate(var(--r-move)); opacity: 0; }
+        }
 
-.slider{
-  width:100%;
-  height:190px;
-  border-radius:25px;
-  border:4px solid,#111;
-  overflow:hidden;
-  position:relative;
-  margin-bottom:25px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.15);
-}
+        /* --- HALAMAN 5: SCREEN FOTO JOKE & COUNTDOWN --- */
+        .photo-session-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            z-index: 40;
+        }
 
-.slides{
-  display:flex;
-  width:300%;
-  height:100%;
-  transition:0.5s ease;
-}
+        .instruction-text {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.5;
+            max-width: 80%;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: fadeIn 0.8s ease;
+        }
 
-.slide{
-  width:100%;
-  height:100%;
-  position:relative;
-}
+        .countdown-number {
+            font-size: 90px;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            margin-top: 20px;
+            display: none;
+        }
 
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+        .camera-flash-text {
+            font-size: 38px;
+            font-weight: 800;
+            text-shadow: 0 0 20px #ffffff, 0 0 40px var(--primary-glow);
+            display: none;
+            animation: flashScale 0.4s ease;
+        }
 
-.slide-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-  to top,
-  rgba(0,0,0,0.75),
-  rgba(0,0,0,0.15));
-}
+        @keyframes flashScale {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
-.slide-text{
-  position:absolute;
-  left:20px;
-  bottom:20px;
-  color:white;
-  z-index:2;
-}
+        .result-intro-text {
+            font-size: 26px;
+            font-weight: 600;
+            color: #ffccd5;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
 
-.slide-text h3{
-  font-size:28px;
-  font-weight:700;
-}
+        .surprise-photo-frame {
+            width: 280px;
+            height: 280px;
+            padding: 8px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            display: none;
+            transform: scale(0);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 20px;
+        }
+        .surprise-photo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
 
-.slide-text p{
-  font-size:14px;
-  margin-top:4px;
-}
+        /* --- HALAMAN 6: SLIDER FOTO PACAR CANTIK & END SCREEN --- */
+        .real-gallery-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            overflow: hidden;
+        }
 
-/* SECTION */
+        .real-intro-text {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            background: linear-gradient(to right, #ffffff, #ffccd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+            animation: fadeIn 0.8s ease;
+        }
 
-.game-section,
-.diamond-section{
-  background:#f3f4f6;
-  border-radius:25px;
-  padding:25px;
-  margin-bottom:25px;
-}
+        /* Pembungkus Jalur Slider */
+        .slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
 
-/* TITLE */
+        /* Kontainer Utama yang Bergerak dari Kanan ke Kiri */
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scrollLeft 18s linear forwards; /* Durasi slide otomatis */
+        }
 
-.section-title h2{
-  font-size:30px;
-  color:#111827;
-  margin-bottom:25px;
-}
+        .slide-card {
+            width: 200px;
+            height: 250px;
+            padding: 6px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            flex-shrink: 0;
+        }
+        .slide-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
 
-/* GAME GRID */
+        @keyframes scrollLeft {
+            0% { transform: translateX(100vw); } /* Mulai dari luar layar sebelah kanan */
+            100% { transform: translateX(calc(-100%)); } /* Bergerak penuh ke kiri luar layar */
+        }
 
-.game-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:22px 15px;
-}
+        .end-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 60;
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+        }
 
-/* GAME CARD */
+        .end-text {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
 
-.game-card{
-  border:none;
-  background:none;
-  text-align:center;
-  cursor:pointer;
-  transition:0.2s;
-}
+        .end-subtext {
+            font-size: 16px;
+            color: #ffccd5;
+            margin-top: 10px;
+        }
 
-.game-card:active{
-  transform:scale(0.95);
-}
-
-.game-card img{
-  width:75px;
-  height:75px;
-  object-fit:cover;
-  border-radius:22px;
-  margin-bottom:10px;
-  background:white;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-.game-card span{
-  font-size:14px;
-  color:#111827;
-  font-weight:600;
-  line-height:1.4;
-  display:block;
-}
-
-/* ACTIVE */
-
-.game-card.active img{
-  border:4px solid #b91c1c;
-}
-
-.game-card.active span{
-  color:#b91c1c;
-}
-
-/* DIAMOND GRID */
-
-.diamond-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-/* DIAMOND CARD */
-
-.diamond-card{
-  border:none;
-  background:white;
-  border-radius:20px;
-  padding:18px;
-  cursor:pointer;
-  text-align:left;
-  transition:0.2s;
-  box-shadow:0 4px 10px rgba(0,0,0,0.06);
-}
-
-.diamond-card:hover{
-  transform:translateY(-3px);
-}
-
-.diamond-card.active{
-  border:3px solid #b91c1c;
-}
-
-/* DIAMOND TOP */
-
-.diamond-top{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.diamond-top img{
-  width:40px;
-  height:40px;
-  object-fit:contain;
-}
-
-.diamond-top span{
-  font-size:15px;
-  font-weight:600;
-  color:#111827;
-}
-
-/* PRICE */
-
-.diamond-price{
-  font-size:16px;
-  font-weight:700;
-  color:#b91c1c;
-}
-
-/* MOBILE */
-
-@media(max-width:420px){
-
-  .game-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .diamond-grid{
-    grid-template-columns:1fr;
-  }
-
-  .game-card img{
-    width:68px;
-    height:68px;
-  }
-
-  .section-title h2{
-    font-size:26px;
-  }
-
-}
-
-</style>
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #youtubePlayer { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    </style>
 </head>
 <body>
 
-<div class="container">
+    <svg style="width:0; height:0; position:absolute;">
+        <defs>
+            <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff758c" />
+                <stop offset="100%" stop-color="#ff3366" />
+            </linearGradient>
+        </defs>
+    </svg>
 
-  <!-- HEADER -->
+    <div id="youtubePlayer"></div>
 
-  <div class="header-store">
-
-    <div class="logo-store">
-      <img src="logo.png">
-    </div>
-
-    <div class="store-title">
-      <h1>Dikz Store</h1>
-      <p>Top Up Game Murah & Cepat</p>
-    </div>
-
-  </div>
-
-  <!-- BEST SELLER -->
-
-  <div class="best-title">
-    <h2>Best Seller Diamond</h2>
-  </div>
-
-  <!-- SLIDER -->
-
-  <div class="slider">
-
-    <div class="slides">
-
-      <!-- FREE FIRE -->
-
-      <div class="slide">
-
-        <img src="freefirebaner.webp">
-
-        <div class="slide-overlay"></div>
-
-        <div class="slide-text">
-          <h3>Free Fire</h3>
-          <p>Top Up Diamond Murah</p>
+    <div class="container" id="mainContainer">
+        <div class="heart-btn" id="mainHeart">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </div>
 
-      </div>
-
-      <!-- ML -->
-
-      <div class="slide">
-
-        <img src="mlbaner.jpeg">
-
-        <div class="slide-overlay"></div>
-
-        <div class="slide-text">
-          <h3>Mobile Legends</h3>
-          <p>Proses Under 5 Menit</p>
+        <div class="photo-gallery">
+            <div class="photo-frame" style="--x: -120px; --y: -150px; --r: -10deg;"><img src="1.jpg"></div>
+            <div class="photo-frame" style="--x: 120px; --y: -150px; --r: 10deg;"><img src="2.jpg"></div>
+            <div class="photo-frame" style="--x: -120px; --y: 110px; --r: -5deg;"><img src="3.jpg"></div>
+            <div class="photo-frame" style="--x: 120px; --y: 110px; --r: 7deg;"><img src="4.jpg"></div>
         </div>
 
-      </div>
+        <button class="custom-btn" id="btnNext">Lanjut ✨</button>
+    </div>
 
-      <!-- PUBG -->
+    <div class="game-screen" id="gameScreen">
+        <div class="note-text">Pencet semua hati ya! ❤️</div>
+    </div>
 
-      <div class="slide">
+    <div class="final-screen" id="finalScreen">
+        <h1 class="love-text" id="loveText">I LOVE YOU<br>KEIJA SAYANG</h1>
+    </div>
 
-        <img src="pubgbaner.webp">
-
-        <div class="slide-overlay"></div>
-
-        <div class="slide-text">
-          <h3>PUBG Mobile</h3>
-          <p>UC Aman Amanah Terpercaya</p>
+    <div class="photo-session-screen" id="photoSessionScreen">
+        <div class="instruction-text" id="instructionText">Hai sayang ayo foto, sekarang jauhin hpnya sedikit yaa!!</div>
+        <div class="countdown-number" id="countdownNumber">1</div>
+        <div class="camera-flash-text" id="cameraFlashText">📷 CEKREK! 📷</div>
+        <div class="result-intro-text" id="resultIntroText">Ini dia hasilnya...</div>
+        
+        <div class="surprise-photo-frame" id="surprisePhotoFrame">
+            <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=500" alt="Surprise Joke">
         </div>
-
-      </div>
-
     </div>
 
-  </div>
-
-  <!-- PILIH GAME -->
-
-  <div class="game-section">
-
-    <div class="section-title">
-      <h2>Pilih Game</h2>
-    </div>
-
-    <div class="game-grid">
-
-      <button class="game-card active">
-        <img src="download.jpeg">
-        <span>Free Fire</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (1).jpeg">
-        <span>Mobile Legends</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (2).jpeg">
-        <span>PUBG Mobile</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (5).png">
-        <span>Valorant</span>
-      </button>
-
-      <button class="game-card">
-        <img src="images (7).jpeg">
-        <span>Call Of Duty</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (3).jpeg">
-        <span>Genshin Impact</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (4).jpeg">
-        <span>Honor Of Kings</span>
-      </button>
-
-      <button class="game-card">
-        <img src="download (6).png">
-        <span>Garena AOV</span>
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- MENU DIAMOND -->
-
-<div class="diamond-section" id="diamondSection" style="display:none;">
-
-  <div class="section-title">
-    <h2 id="diamondTitle">Pilih Nominal</h2>
-  </div>
-
-  <div class="diamond-grid" id="diamondGrid">
-
-  </div>
-
-</div>
-
-<script>
-
-/* =========================
-   AUTO SLIDER
-========================= */
-
-const slides = document.querySelector('.slides');
-
-let index = 0;
-
-function autoSlide(){
-
-  index++;
-
-  if(index >= 3){
-    index = 0;
-  }
-
-  slides.style.transform =
-  `translateX(-${index * 33.3333}%)`;
-
-}
-
-setInterval(autoSlide, 4000);
-
-
-/* =========================
-   DATA DIAMOND
-========================= */
-
-const 
-  gameData = {
-
-  "Free Fire":[
-    {name:"5 Diamond",price:"Rp1.500"},
-    {name:"12 Diamond",price:"Rp2.000"},
-    {name:"70 Diamond",price:"Rp10.000"},
-    {name:"140 Diamond",price:"Rp25.000"},
-    {name:"355 Diamond",price:"Rp50.000"},
-    {name:"720 Diamond",price:"Rp100.000"},
-    {name:"1450 Diamond",price:"Rp225.000"}
-  ],
-
-  "Mobile Legends":[
-    {name:"3 Diamond",price:"Rp1.400"},
-    {name:"28 Diamond",price:"Rp9.500"},
-    {name:"56 Diamond",price:"Rp17.000"},
-    {name:"86 Diamond",price:"Rp24.000"},
-    {name:"100 Diamond",price:"Rp28.000"},
-    {name:"144 Diamond",price:"Rp41.000"},
-    {name:"185 Diamond",price:"Rp50.000"},
-    {name:"257 Diamond",price:"Rp68.000"},
-    {name:"301 Diamond",price:"Rp82.000"},
-    {name:"344 Diamond",price:"Rp"},
-    {name:"408 Diamond",price:"Rp"},
-    {name:"601 Diamond",price:"Rp"},
-    {name:"1050 Diamond",price:"Rp"}
-  ],
-
-  "PUBG Mobile":[
-    {name:"60 UC",price:"Rp15.000"},
-    {name:"325 UC",price:"Rp75.000"},
-    {name:"660 UC",price:"Rp145.000"}
-  ],
-
-  "Valorant":[
-    {name:"125 VP",price:"Rp15.000"},
-    {name:"420 VP",price:"Rp50.000"},
-    {name:"700 VP",price:"Rp79.000"}
-  ],
-    
-  "Genshin Impact":[
-    {name:"200 token",price:"anjengya anjeng"},
-    {name:"cape memek",price:"project mangkrak"},
-    {name:"damar",price:"open bo"}
-  ],
-    
-  "Call Of Duty":[
-    {name:"bima",price:"bego"}
-  ]
-};
-
-
-/* =========================
-   PILIH GAME
-========================= */
-
-const gameCards =
-document.querySelectorAll('.game-card');
-
-const diamondSection =
-document.getElementById('diamondSection');
-
-const diamondGrid =
-document.getElementById('diamondGrid');
-
-const diamondTitle =
-document.getElementById('diamondTitle');
-
-
-gameCards.forEach(card => {
-
-  card.addEventListener('click', () => {
-
-    /* ACTIVE */
-
-    gameCards.forEach(item =>
-      item.classList.remove('active')
-    );
-
-    card.classList.add('active');
-
-    /* AMBIL NAMA GAME */
-
-    const gameName =
-    card.querySelector('span').innerText;
-
-    /* ACTIVE DIAMOND */
-
-document.addEventListener('click', function(e){
-
-  const diamondCard =
-  e.target.closest('.diamond-card');
-
-  if(!diamondCard) return;
-
-  const allDiamond =
-  document.querySelectorAll('.diamond-card');
-
-  allDiamond.forEach(card => {
-    card.classList.remove('active');
-  });
-
-  diamondCard.classList.add('active');
-
-});
-    
-    diamondSection.style.display = 'block';
-    
-    setTimeout(() => {
-
-  diamondSection.scrollIntoView({
-    behavior:'smooth'
-  });
-
-}, 200);
-
-    diamondTitle.innerText =
-    gameName + ' Nominal';
-
-    /* RESET GRID */
-
-    diamondGrid.innerHTML = '';
-
-    /* LOOP DATA */
-
-    if(gameData[gameName]){
-
-      gameData[gameName].forEach(item => {
-
-        diamondGrid.innerHTML += `
-
-          <button class="diamond-card">
-
-            <div class="diamond-top">
-
-              <img src="diamond.png">
-
-              <span>${item.name}</span>
-
+    <div class="real-gallery-screen" id="realGalleryScreen">
+        <div class="real-intro-text">Becanda sayang, ini dia pacar gue yang cantik... 🥰</div>
+        <div class="slider-wrapper">
+            <div class="slider-track" id="sliderTrack">
+                <div class="slide-card"><img src="11.jpg"></div>
+                <div class="slide-card"><img src="10.jpg"></div>
+                <div class="slide-card"><img src="11jpg"></div>
+                <div class="slide-card"><img src="9.jpg"></div>
+                <div class="slide-card"><img src="8.jpg"></div>
+                <div class="slide-card"><img src="7.jpg"></div>
+                <div class="slide-card"><img src="6.jpg"></div>
+                <div class="slide-card"><img src="5.jpg"></div>
+                <div class="slide-card"><img src="4.jpg"></div>
+                <div class="slide-card"><img src="3.jpg"></div>
             </div>
+        </div>
+    </div>
 
-            <div class="diamond-price">
-              ${item.price}
-            </div>
+    <div class="end-screen" id="endScreen">
+        <h1 class="end-text">I Love You Till The End ❤️</h1>
+        <p class="end-subtext">Terima kasih sudah hadir di hidupku, Keija.</p>
+    </div>
 
-          </button>
+    <script src="https://www.youtube.com/iframe_api"></script>
 
-        `;
+    <script>
+        const mainContainer = document.getElementById('mainContainer');
+        const mainHeart = document.getElementById('mainHeart');
+        const photos = document.querySelectorAll('.photo-frame');
+        const btnNext = document.getElementById('btnNext');
+        const gameScreen = document.getElementById('gameScreen');
+        const finalScreen = document.getElementById('finalScreen');
+        const loveText = document.getElementById('loveText');
+        const photoSessionScreen = document.getElementById('photoSessionScreen');
+        const instructionText = document.getElementById('instructionText');
+        const countdownNumber = document.getElementById('countdownNumber');
+        const cameraFlashText = document.getElementById('cameraFlashText');
+        const resultIntroText = document.getElementById('resultIntroText');
+        const surprisePhotoFrame = document.getElementById('surprisePhotoFrame');
+        const realGalleryScreen = document.getElementById('realGalleryScreen');
+        const sliderTrack = document.getElementById('sliderTrack');
+        const endScreen = document.getElementById('endScreen');
 
-      });
+        let totalGameHearts = 15;
+        let poppedHearts = 0;
+        let player;
+        let bubbleInterval;
 
-    }
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubePlayer', {
+                height: '0', width: '0', videoId: 'dQw4w9WgXcQ', 
+                playerVars: { 'autoplay': 0, 'controls': 0 }
+            });
+        }
 
-  });
+        // 1. KLIK HATI UTAMA
+        mainHeart.addEventListener('click', function() {
+            const rect = mainHeart.getBoundingClientRect();
+            const xCenter = rect.left + rect.width / 2;
+            const yCenter = rect.top + rect.height / 2;
 
-});
+            for (let i = 0; i < 35; i++) {
+                const shard = document.createElement('div');
+                shard.classList.add('shard');
+                const size = Math.random() * 10 + 5;
+                shard.style.width = `${size}px`; shard.style.height = `${size}px`;
+                shard.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                shard.style.left = `${xCenter}px`; shard.style.top = `${yCenter}px`;
+                document.body.appendChild(shard);
 
-</script>
+                const angle = (i / 35) * Math.PI * 2;
+                const velocity = Math.random() * 160 + 90;
+                const moveX = Math.cos(angle) * velocity;
+                const moveY = Math.sin(angle) * velocity;
 
+                setTimeout(() => {
+                    shard.style.transform = `translate(${moveX}px, ${moveY}px) scale(0) rotate(${Math.random() * 360}deg)`;
+                    shard.style.opacity = '0';
+                }, 10);
+                setTimeout(() => { shard.remove(); }, 800);
+            }
+
+            mainHeart.style.display = 'none';
+            photos.forEach((photo, index) => {
+                setTimeout(() => { photo.classList.add('show'); }, index * 200);
+            });
+            setTimeout(() => { btnNext.classList.add('show'); }, photos.length * 200 + 400);
+        });
+
+        // 2. PINDAH KE GAME SCREEN
+        btnNext.addEventListener('click', () => {
+            mainContainer.style.display = 'none';
+            gameScreen.style.display = 'flex';
+            spawnGameHearts();
+        });
+
+        function spawnGameHearts() {
+            for (let i = 0; i < totalGameHearts; i++) {
+                const gHeart = document.createElement('div');
+                gHeart.classList.add('game-heart');
+                gHeart.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+                
+                const rawX = Math.random() * 76 + 12; 
+                const rawY = Math.random() * 60 + 22; 
+                gHeart.style.left = `${rawX}%`; gHeart.style.top = `${rawY}%`;
+                
+                const scale = Math.random() * 0.3 + 0.85;
+                gHeart.style.transform = `scale(${scale})`;
+
+                gHeart.addEventListener('click', () => {
+                    gHeart.style.transform = 'scale(0)';
+                    setTimeout(() => { gHeart.remove(); }, 200);
+                    poppedHearts++;
+
+                    if (poppedHearts === totalGameHearts) {
+                        setTimeout(showFinalScreen, 400);
+                    }
+                });
+                gameScreen.appendChild(gHeart);
+            }
+        }
+
+        // 3. SCREEN "I LOVE YOU KEIJA SAYANG"
+        function showFinalScreen() {
+            gameScreen.style.display = 'none';
+            finalScreen.style.display = 'flex';
+            
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+            
+            bubbleInterval = setInterval(createBubbleHeart, 120);
+
+            setTimeout(() => {
+                loveText.classList.add('fly-away');
+                clearInterval(bubbleInterval); 
+                document.querySelectorAll('.bubble-heart').forEach(b => b.classList.add('fade-out'));
+
+                setTimeout(() => {
+                    finalScreen.style.display = 'none';
+                    startPhotoSession();
+                }, 1500); 
+            }, 5000);
+        }
+
+        function createBubbleHeart() {
+            const bubble = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            bubble.setAttribute("viewBox", "0 0 24 24");
+            bubble.setAttribute("class", "bubble-heart");
+            bubble.innerHTML = `<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>`;
+            
+            const startX = Math.random() * 100;
+            const size = Math.random() * 1.3 + 0.4;
+            const duration = Math.random() * 3.5 + 2.5; 
+            const moveX = (Math.random() - 0.5) * 180; 
+            const rotateMove = (Math.random() - 0.5) * 90;
+
+            bubble.style.left = `${startX}%`;
+            bubble.style.setProperty('--s', size);
+            bubble.style.setProperty('--t', `${duration}s`);
+            bubble.style.setProperty('--x-move', `${moveX}px`);
+            bubble.style.setProperty('--r-move', `${rotateMove}deg`);
+
+            const colors = ['#ff4d6d', '#ff758c', '#ff8fa3', '#ff0a54', '#ffccd5'];
+            bubble.style.fill = colors[Math.floor(Math.random() * colors.length)];
+
+            finalScreen.appendChild(bubble);
+            setTimeout(() => { bubble.remove(); }, duration * 1000);
+        }
+
+        // 4. HITUNG MUNDUR & JOKE SCREEN
+        function startPhotoSession() {
+            photoSessionScreen.style.display = 'flex';
+            
+            setTimeout(() => {
+                instructionText.style.display = 'none';
+                countdownNumber.style.display = 'block';
+                
+                let currentCount = 1;
+                countdownNumber.innerText = currentCount;
+
+                let countInterval = setInterval(() => {
+                    currentCount++;
+                    if (currentCount <= 3) {
+                        countdownNumber.innerText = currentCount;
+                    } else {
+                        clearInterval(countInterval);
+                        countdownNumber.style.display = 'none';
+                        triggerCameraFlash();
+                    }
+                }, 1000);
+            }, 5000);
+        }
+
+        function triggerCameraFlash() {
+            cameraFlashText.style.display = 'block';
+            setTimeout(() => {
+                cameraFlashText.style.display = 'none';
+                resultIntroText.style.display = 'block';
+                setTimeout(() => {
+                    resultIntroText.style.display = 'none';
+                    showSurprisePhoto();
+                }, 1500);
+            }, 1500);
+        }
+
+        function showSurprisePhoto() {
+            surprisePhotoFrame.style.display = 'block';
+            setTimeout(() => { surprisePhotoFrame.style.transform = 'scale(1)'; }, 50);
+
+            // Jeda 4 detik setelah foto candaan muncul, lalu geser ke galeri asli pacar cantik
+            setTimeout(() => {
+                photoSessionScreen.style.display = 'none';
+                startRealGallery();
+            }, 4000);
+        }
+
+        // 5. SLIDER 10 FOTO PACAR CANTIK & TIMING END SCREEN
+        function startRealGallery() {
+            realGalleryScreen.style.display = 'flex';
+
+            // Menghitung kapan animasi slide horizontal selesai total keluar layar kiri
+            // Animasi CSS diset selama 18 detik. Setelah selesai, otomatis pindah ke End Screen.
+            setTimeout(() => {
+                realGalleryScreen.style.display = 'none';
+                showEndScreen();
+            }, 18500); 
+        }
+
+        function showEndScreen() {
+            endScreen.style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
